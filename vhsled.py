@@ -10,9 +10,8 @@ GPIO.setmode(GPIO.BCM)
 #properties of our display
 width = 26
 height = 10
-strings= ["VHS ! VHS !", "Welcome to the Bunker","drink beer", "hack the planet", "42", "feed donatio", "go hack something", "the cake is a lie !"]
-oddstrings = ["subliminal message","They Live"]
-
+strings = ["VHS ! VHS !", "Welcome to the Bunker","drink beer", "hack the planet", "42", "feed donatio", "go hack something", "the cake is a lie !"]
+oddstrings  = ["subliminal message","They Live","fight the power","buy our stuff!"]
 
 ledpixels = []
 for i in range(0,width):
@@ -24,17 +23,26 @@ random.seed()
 c = randomColor()
 setFullColor(ledpixels,spidev,randomColor())
 
-countdownText(ledpixels,spidev,characters,number,randomColor(),Color(0,0,0),1)
+countdownText(ledpixels,spidev,characters,5,randomColor(),Color(0,0,0),1)
+print "countdown test complete"
 colorwipe_snake(ledpixels,spidev,randomColor(),0.05)
+print "snake test complete"
 colorFlashMode(ledpixels,spidev,random.randint(0,20),0.5)
+print "flash test complete"
 colorwipe_vertical(ledpixels,spidev,randomColor(), 0.0005,1)
 colorwipe_vertical(ledpixels,spidev,randomColor(), 0.0005,-1)
+print "vertical wipe test complete"
 colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,1)
 colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,-1)
+print "horizontal wipe test complete"
 rainbowCycle(ledpixels,spidev, 0.00)
+print "rainbow cycle test complete"
 rainbowBoard(ledpixels,spidev,0.0)
+print "rainbow board test complete"
 scrollText(ledpixels,spidev,characters,random.choice(strings),randomColor(),Color(0,0,0),0.05)
 scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)
+print "text scrolling test complete"
+print "TEST COMPLETE: PROCEEDING TO PROGRAM MODE"
 
 
 while (not os.path.exists("/home/pi/stop")):

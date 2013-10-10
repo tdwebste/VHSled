@@ -18,6 +18,8 @@ GPIO.setmode(GPIO.BCM)
 
 width = 26
 height = 10
+strings = ["VHS ! VHS !", "Welcome to the Bunker","drink beer", "hack the planet", "42", "feed donatio", "go hack something", "the cake is a lie !"]
+oddstrings  = ["subliminal message","They Live","fight the power","buy our stuff!"]
 
 ledpixels = []
 for i in range(0,width):
@@ -52,8 +54,14 @@ while True:
 		if text == "rainbows": #undocumented mode to strobe the display
 			while True:
 				rainbowCycle(ledpixels,spidev, 0.00)
+		if text == "subliminal": #undocumented mode to strobe the display
+			while True:
+				scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)
 		elif text =="exit":
 				break
+		else:	
+			scrollText(ledpixels,spidev,characters, text, random.choice(bright_colors),Color(0,0,0),0.05)
+
 	else:
 		seconds = int(raw_input("How many seconds?"))
 		countdownText(ledpixels,spidev,characters,seconds, random.choice(bright_colors),Color(0,0,0),1)
