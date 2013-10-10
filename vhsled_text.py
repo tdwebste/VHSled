@@ -47,7 +47,6 @@ def countdownText(pixels,spidev, characters,time_s, text_c, background_c,speed):
 	#assemble the matrix components of the time
 	for second in range(time_s,0,-1):
 		text_matrix = []
-		print second
 		for char in str(second):
 			w, columns = characters[char.upper()]
 			for i,c in enumerate(columns):
@@ -58,7 +57,6 @@ def countdownText(pixels,spidev, characters,time_s, text_c, background_c,speed):
 				text_matrix[x][y] = text_c if row==1 else background_c
 		text_matrix = text_matrix+pixels
 		writestrip(text_matrix[0:len(pixels)],spidev)
-		print "reached sleep"
 		time.sleep(speed)
 
 

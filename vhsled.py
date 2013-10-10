@@ -24,7 +24,7 @@ random.seed()
 c = randomColor()
 setFullColor(ledpixels,spidev,randomColor())
 
-countdownText(ledpixels,spidev,characters,120,randomColor(),Color(0,0,0),1)
+countdownText(ledpixels,spidev,characters,number,randomColor(),Color(0,0,0),1)
 colorwipe_snake(ledpixels,spidev,randomColor(),0.05)
 colorFlashMode(ledpixels,spidev,random.randint(0,20),0.5)
 colorwipe_vertical(ledpixels,spidev,randomColor(), 0.0005,1)
@@ -34,7 +34,7 @@ colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,-1)
 rainbowCycle(ledpixels,spidev, 0.00)
 rainbowBoard(ledpixels,spidev,0.0)
 scrollText(ledpixels,spidev,characters,random.choice(strings),randomColor(),Color(0,0,0),0.05)
-
+scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)
 
 
 while (not os.path.exists("/home/pi/stop")):
