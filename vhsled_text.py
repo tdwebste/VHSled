@@ -39,3 +39,26 @@ def scrollText(pixels,spidev, characters,text, text_c, background_c, speed):
 	for i in range(len(text_matrix)-len(pixels)+1):
 		writestrip(text_matrix[i:len(pixels)+i],spidev)
 		time.sleep(speed)
+
+def countdownText(pixels,spidev, characters,time_s, text_c, background_c,speed):
+	setFullColor(pixels,spidev,background_c)
+	padding_pixels = pixels
+	character_spacing = [0 for i in range(len(pixels[0]))]
+	#assemble the matrix components of the time
+	for second in range(time_s,0,-1):
+		text_matrix = []
+		print second
+		for char in str(second):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		for x,col in enumerate(text_matrix):
+			for y,row in enumerate(col):
+				text_matrix[x][y] = text_c if row==1 else background_c
+		text_matrix = text_matrix+pixels
+		writestrip(text_matrix[0:len(pixels)],spidev)
+		print "reached sleep"
+		time.sleep(speed)
+
+

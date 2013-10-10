@@ -10,7 +10,7 @@ GPIO.setmode(GPIO.BCM)
 #properties of our display
 width = 26
 height = 10
-strings= ["VHS! VHS!", "Welcome to the Bunker","drink beer", "hack the planet", "42", "feed donatio", "go hack something"]
+strings= ["VHS ! VHS !", "Welcome to the Bunker","drink beer", "hack the planet", "42", "feed donatio", "go hack something", "the cake is a lie !"]
 oddstrings = ["subliminal message","They Live"]
 
 
@@ -22,8 +22,9 @@ spidev = file("/dev/spidev0.0", "w")
 random.seed()
 
 c = randomColor()
-setFullColor(ledpixels,spidev,c)
+setFullColor(ledpixels,spidev,randomColor())
 
+countdownText(ledpixels,spidev,characters,120,randomColor(),Color(0,0,0),1)
 colorwipe_snake(ledpixels,spidev,randomColor(),0.05)
 colorFlashMode(ledpixels,spidev,random.randint(0,20),0.5)
 colorwipe_vertical(ledpixels,spidev,randomColor(), 0.0005,1)
@@ -32,7 +33,7 @@ colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,1)
 colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,-1)
 rainbowCycle(ledpixels,spidev, 0.00)
 rainbowBoard(ledpixels,spidev,0.0)
-scrollText(ledpixels,spidev,characters, random.choice(strings),randomColor(),Color(0,0,0),0.05)
+scrollText(ledpixels,spidev,characters,random.choice(strings),randomColor(),Color(0,0,0),0.05)
 
 
 
