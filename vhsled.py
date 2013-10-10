@@ -43,6 +43,7 @@ scrollText(ledpixels,spidev,characters,random.choice(strings),randomColor(),Colo
 scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)
 print "text scrolling test complete"
 print "TEST COMPLETE: PROCEEDING TO PROGRAM MODE"
+#status report of different self-tests in real time
 
 
 while (not os.path.exists("/home/pi/stop")):
