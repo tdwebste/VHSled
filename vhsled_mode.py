@@ -39,22 +39,22 @@ bright_colors = [Color(0,255,0),Color(0,0,255),Color(255,255,0),Color(255,0,255)
 while True:
 	text = raw_input("display string (insert dev code or press enter to run countdown):")
 	if len(text) > 0:
-		if text == "flash": #undocumented mode to strobe the display
+		if text == "flash": #undocumented mode to test the display
 			while True:
 				colorFlashMode(ledpixels,spidev,10,0.1)
-		if text == "snake": #undocumented mode to strobe the display
+		if text == "snake": #undocumented mode to test the display
 			while True:
 				colorwipe_snake(ledpixels,spidev,randomColor(),0.05)
-		if text == "wipe": #undocumented mode to strobe the display
+		if text == "wipe": #undocumented mode to test the display
 			while True:
 				colorwipe_horiz(ledpixels,spidev,randomColor(),0.0005,1)
-		if text == "fades": #undocumented mode to strobe the display
+		if text == "fades": #undocumented mode to test the display
 			while True:
 				rainbowBoard(ledpixels,spidev,0.0)
-		if text == "rainbows": #undocumented mode to strobe the display
+		if text == "rainbows": #undocumented mode to test the display
 			while True:
 				rainbowCycle(ledpixels,spidev, 0.00)
-		if text == "subliminal": #undocumented mode to strobe the display
+		if text == "subliminal": #undocumented mode to test the display
 			while True:
 				scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)
 		elif text =="exit":
