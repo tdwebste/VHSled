@@ -1,6 +1,7 @@
 # a more accurate name for this would be timer.py, however the "spec"
 #  calls for the pi based timer to be called piMC.py. Who am I to argue.
 import RPi.GPIO as GPIO, time, os, random
+import datetime
 from vhsled_spi import *
 from vhsled_text import *
 from vhsled_colour import *
@@ -54,6 +55,9 @@ while True:
 		if text == "rainbows": #undocumented mode to test the display
 			while True:
 				rainbowCycle(ledpixels,spidev, 0.00)
+		if text == "clock": #undocumented mode to test the display
+			while True:
+				clockText(ledpixels,spidev,characters,":", random.choice(bright_colors),Color(0,0,0),2)
 		if text == "subliminal": #undocumented mode to test the display
 			while True:
 				scrollText(ledpixels,spidev,characters,random.choice(oddstrings),random.choice(bright_colors),random.choice(bright_colors),0.001)

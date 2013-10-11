@@ -1,9 +1,11 @@
-## control script for VHS's wall display array of WS2801 36mm Square LEDs 
+## control script for VHS's wall display array of WS2801 36mm Square LEDs   
 
 import RPi.GPIO as GPIO, time, os, random
+import datetime
 from vhsled_spi import *
 from vhsled_text import *
 from vhsled_colour import *
+
 
 GPIO.setmode(GPIO.BCM)
 
@@ -22,6 +24,7 @@ random.seed()
 
 c = randomColor()
 setFullColor(ledpixels,spidev,randomColor())
+
 
 countdownText(ledpixels,spidev,characters,5,randomColor(),Color(0,0,0),1)
 print "countdown test complete"
