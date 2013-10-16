@@ -69,20 +69,35 @@ def clockText(pixels,spidev, characters,colon, text_c, background_c,speed):
 	padding_pixels = pixels
 	character_spacing = [0 for i in range(len(pixels[0]))]
 	#assemble the matrix components of the time
-	while True:
+	while (not os.path.exists("/home/pi/stop")):
 		text_matrix = []
 		now = datetime.datetime.now()
+		#controls the hour
 		for char in str(now.hour):
 			w, columns = characters[char.upper()]
 			for i,c in enumerate(columns):
 				text_matrix.append(c[::-1])
 			text_matrix.append(character_spacing)
+		#cumbersome yet effective way to make a colon
 		for char in str(colon):
 			w, columns = characters[char.upper()]
 			for i,c in enumerate(columns):
 				text_matrix.append(c[::-1])
 			text_matrix.append(character_spacing)
+		#controls the minute
 		for char in str(now.minute):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#another colon-maker
+		for char in str(colon):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#controls the second
+		for char in str(now.second):
 			w, columns = characters[char.upper()]
 			for i,c in enumerate(columns):
 				text_matrix.append(c[::-1])
