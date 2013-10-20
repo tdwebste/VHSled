@@ -1,6 +1,9 @@
+import datetime
 import time
 from vhsled_spi import writestrip
 from vhsled_colour import *
+
+
 
 characters = {}
 with open('/home/pi/font.txt', 'r') as m_f:
@@ -38,4 +41,70 @@ def scrollText(pixels,spidev, characters,text, text_c, background_c, speed):
 	text_matrix = pixels+text_matrix+pixels
 	for i in range(len(text_matrix)-len(pixels)+1):
 		writestrip(text_matrix[i:len(pixels)+i],spidev)
+		time.sleep(speed)
+
+
+
+def countdownText(pixels,spidev, characters,time_s, text_c, background_c,speed):
+	setFullColor(pixels,spidev,background_c)
+	padding_pixels = pixels
+	character_spacing = [0 for i in range(len(pixels[0]))]
+	#assemble the matrix components of the time
+	for second in range(time_s,0,-1):
+		text_matrix = []
+		for char in str(second):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		for x,col in enumerate(text_matrix):
+			for y,row in enumerate(col):
+				text_matrix[x][y] = text_c if row==1 else background_c
+		text_matrix = text_matrix+pixels
+		writestrip(text_matrix[0:len(pixels)],spidev)
+		time.sleep(speed)
+
+def clockText(pixels,spidev, characters,colon, text_c, background_c,speed):
+	setFullColor(pixels,spidev,background_c)
+	padding_pixels = pixels
+	character_spacing = [0 for i in range(len(pixels[0]))]
+	#assemble the matrix components of the time
+	while (not os.path.exists("/home/pi/stop")):
+		text_matrix = []
+		now = datetime.datetime.now()
+		#controls the hour
+		for char in str(now.hour):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#cumbersome yet effective way to make a colon
+		for char in str(colon):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#controls the minute
+		for char in str(now.minute):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#another colon-maker
+		for char in str(colon):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		#controls the second
+		for char in str(now.second):
+			w, columns = characters[char.upper()]
+			for i,c in enumerate(columns):
+				text_matrix.append(c[::-1])
+			text_matrix.append(character_spacing)
+		for x,col in enumerate(text_matrix):
+			for y,row in enumerate(col):
+				text_matrix[x][y] = text_c if row==1 else background_c
+		text_matrix = text_matrix+pixels
+		writestrip(text_matrix[0:len(pixels)],spidev)
 		time.sleep(speed)
