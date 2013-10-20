@@ -16,7 +16,7 @@ def countdown_timer(pixels, c, time_s):
 
 GPIO.setmode(GPIO.BCM)
 
-width = 26
+width = 42
 height = 10
 
 ledpixels = []
